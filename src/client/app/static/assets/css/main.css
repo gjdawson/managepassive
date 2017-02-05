@@ -14,39 +14,40 @@ header {
     z-index:10000;
 }
 
-sensor {
+.sensor {
     margin: 1rem;
     height: 18rem;
     width: 16rem;
 
 }
 
-sensor .sensor-name {
+.sensor .sensor-name {
     margin-top:1rem;
 }
 
-sensor .indicator {
+.sensor .indicator {
     transition: all 0.5s;
-    width:0%;
+    width:80%;
     height:0%;
+    position:absolute;
+    bottom:0;
 
-    border-radius:50%;
 }
 
-sensor > div {
+.sensor > div {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-sensor div.indicator-pad {
+.sensor div.indicator-pad {
     width:100%;
     padding-top:100%;
     position: relative;
 }
 
-sensor .indicator-pad .square {
+.sensor .indicator-pad .square {
     position:absolute;
     top:0;
     left:0;
@@ -57,8 +58,31 @@ sensor .indicator-pad .square {
     justify-content: center;
 }
 
+.sensor .sensor-type {
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background-position: center;
+    background-size: 100% auto;
+    opacity:0.6;
+    background-repeat: no-repeat;
+}
+
+.sensor .sensor-type.generic {
+    background-image: url('/assets/img/sensor-generic.svg');
+    background-position: 0.25rem;
+}
+
+.sensor .sensor-type.temp {
+    background-image: url('/assets/img/sensor-temp.svg');
+    background-size: auto 60%;
+}
 .panel.room {
     margin: 1rem;
+    min-height:29rem;
+    min-width:39rem;
 }
 
 .sensor-graph {
@@ -69,11 +93,11 @@ sensor .indicator-pad .square {
     min-height:14rem;
 }
 
-.sensorActivity.active {
+.active-data {
     animation: datapulse 2s infinite;
 }
 
-.sensorActivity{
+.sensorActivity {
     width: 2rem;
     height: 2rem;
 }
@@ -100,3 +124,57 @@ sensor .indicator-pad .square {
     }
 }
 
+/* msg bell */
+
+.msg-bell.active {
+    animation: shake 3s cubic-bezier(.36,.07,.19,.97) infinite;
+    transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake {
+    38%, 62% {
+        transform: translate3d(0px, 0, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(1px, 0, 0);
+    }
+
+    45%, 50%, 55% {
+        transform: translate3d(-3px, 0, 0);
+    }
+
+    47.5%, 52.5% {
+        transform: translate3d(3px, 0, 0);
+    }
+}
+
+.panel.sidebar {
+    width: 100%;
+    float:left;
+    margin-top: 1rem;
+}
+
+body {
+    background: #b3cbf5;
+}
+
+div#user-login-out {
+    height:100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div#user-login-out .panel {
+    width: 30rem;
+}
+
+#user-login-out .panel form {
+    margin: 2rem;
+}
+
+#user-login-out form .auxlink {
+    display: inline-block;
+    padding: 6px 12px;
+}

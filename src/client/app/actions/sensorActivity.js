@@ -1,6 +1,20 @@
-export function registerNewSensor(sensor) {
+export function connectSensor(sensor) {
     return {
         type: 'REGISTER_SENSOR',
+        sensor: sensor
+    }
+}
+
+export function removeSensor(sensor) {
+    return {
+        type: 'REMOVE_SENSOR',
+        sensor: sensor
+    }
+}
+
+export function disconnectSensor(sensor) {
+    return {
+        type: 'DISCONNECT_SENSOR',
         sensor: sensor
     }
 }

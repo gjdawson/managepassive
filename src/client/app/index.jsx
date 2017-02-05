@@ -3,13 +3,16 @@ import { render } from 'react-dom';
 
 
 
-import { createStore } from 'redux'
-import sensorManager from './reducers'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import reduction from './reducers'
 
 // Notice that we've organized all of our routes into a separate file.
 import Router from './router';
 
-let store = createStore(sensorManager);
+let createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore)
+
+let store = createStoreWithMiddleware(reduction)
 
 render(
     <Router store={store}/>,

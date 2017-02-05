@@ -4,15 +4,15 @@ import Sidebar from 'react-sidebar'
 import { Grid, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
+import Muon from 'muonjs'
 
 // Components
 import DocumentTitle from 'react-document-title'
-import HeaderBarController from './HeaderBar';
 
 //import { Router, Route, Link, browserHistory } from 'react-router'
 
 
-class MainLayout extends React.Component {
+class MinimalLayout extends React.Component {
 
     constructor(props) {
         super(props);
@@ -35,16 +35,13 @@ class MainLayout extends React.Component {
 
         return (
 
-            <DocumentTitle title={config.title}>
-
-
-                    <HeaderBarController>
-                        {this.props.children}
-                    </HeaderBarController>
-
+            <DocumentTitle title={config.title + ' – ' + this.props.title}>
+                <div id="user-login-out">
+                    {this.props.children}
+                </div>
             </DocumentTitle>
         );
     }
 }
 
-export default MainLayout;
+export default MinimalLayout;

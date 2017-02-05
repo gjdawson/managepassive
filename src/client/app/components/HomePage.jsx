@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router'
 
 
-import Sensors from './SensorsController'
+import Sensors from './SensorsPageController'
 import Rooms from './RoomsController'
-
+import Sensor from './SensorController'
 
 class HomePage extends React.Component {
 
@@ -15,7 +15,9 @@ class HomePage extends React.Component {
     render() {
         return (
             <div>
-                <Sensors />
+                <Sensor sensorid="test1" />
+
+
             </div>
         );
     }

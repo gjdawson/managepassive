@@ -5,22 +5,41 @@ import { Provider } from 'react-redux'
 // Layouts
 
 import MainLayout from './components/layouts/MainLayout';
+import Sidebar from './components/layouts/Sidebar';
 
 // Pages
 import HomePageController from './components/HomePageController';
-import SingleRoomController from './components/SingleRoomController'
-import SingleSensorController from './components/SingleSensorController'
-import derp from './components/derp';
+import Login from './components/Login'
+import Register from './components/Register'
+import SingleRoomController from './components/SingleRoomPageController'
+import SingleSensorController from './components/SingleSensorPageController'
+import SensorsPageController from './components/SensorsPageController'
+import Dummy from './components/Dummy'
+
+// App
+import Auth from './components/Auth'
+import App from './components/App'
 
 
 const Root = ({ store }) => (
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route component={MainLayout}>
-                <Route path="/" component={HomePageController} />
-                <Route path="derp" component={derp} />
-                <Route path="/room/:roomid" component={SingleRoomController} />
-                <Route path="/sensor/:sensorid" component={SingleSensorController} />
+
+
+
+            <Route path="/">
+                <Route path="login" component={Login} />
+                <Route path="register" component={Register} />
+                <Route component={Auth}>
+                    <Route component={App}>
+                        <IndexRoute component={HomePageController} />
+                        <Route path="sensors" component={SensorsPageController} />
+                        <Route path="room/:roomid" component={SingleRoomController}>
+                            <Route path="edit" component={SingleRoomController}/>
+                        </Route>
+                        <Route path="sensor/:sensorid" component={SingleSensorController} />
+                    </Route>
+                </Route>
             </Route>
         </Router>
     </Provider>

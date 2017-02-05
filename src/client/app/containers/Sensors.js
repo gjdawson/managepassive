@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import SensorsController from '../components/SensorsController'
+import SensorsController from '../components/SensorsPageController'
 
 const mapStateToProps = (state) => {
 

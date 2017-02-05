@@ -11,7 +11,7 @@ class SensorActivity extends React.Component {
 
     render() {
 
-        var status = 'active';
+        var status = 'active-data';
         if(this.props.status == true) {
             status = '';
         }

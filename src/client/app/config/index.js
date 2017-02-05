@@ -1,5 +1,5 @@
 const config = {
-    title: 'Manage My Carehome Demo'
+    title: 'Manage My Passive House Demo'
 };
 
 export default config;

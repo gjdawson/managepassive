@@ -1,11 +1,11 @@
 import React from 'react'
-import Sensor from './Sensor';
+import Sensor from './SensorController';
 import { Panel, Well } from 'react-bootstrap'
 
-
+import SensorChart from './SensorChart'
 
 import Muon from 'muonjs'
-var muon = Muon.client({port: 9898});
+
 
 class SingleSensorController extends React.Component {
 
@@ -14,6 +14,8 @@ class SingleSensorController extends React.Component {
         this.state = {
             sensordata: []
         }
+
+        this.stream = null;
     }
 
     storeData(event) {
@@ -34,13 +36,13 @@ class SingleSensorController extends React.Component {
 
     transformToDataSet(data) {
         return Object.keys(data).map(function(key) {
-            return data[key].pressure;
+            return data[key].value;
         });
     }
 
     genDataObject(sensordata) {
         return {
-            labels: this.genTimeStamps(sensordata),
+            //labels: this.genTimeStamps(sensordata),
             datasets: [
                 {
                     fill: false,
@@ -51,25 +53,21 @@ class SingleSensorController extends React.Component {
         }
     }
 
-    componentDidMount() {
-
-
+    componentWillMount() {
+        this.muon = Muon.client({port: 9898});
+        let streamName = 'sensor-data-'+this.props.routeParams.sensorid;
         // We're breaking the established pattern with this one, reading directly instead of through redux, because reasons
 
-        muon.subscribe('stream://photon/stream', {"stream-name": "mmc-sensors"},
+        this.stream = this.muon.subscribe('stream://photon/stream', {"stream-name": streamName},
             function (event) {
                 //console.log(event);
 
                 switch(event['event-type']) {
                     case 'sensor-data':
-                        //updateSensor(event.payload);
 
-                        // dumb storage, because we probably want to pull in data from other sets
-                        // though this might be unnecessary with changes to muon
-                        if(event.payload.sensorid == this.props.routeParams.sensorid) {
-                            console.log('data');
-                            this.storeData(event.payload);
-                        }
+
+                        this.storeData({id: event.payload.id, value: event.payload.value, time: event['event-time']});
+
                         break;
 
                 }
@@ -81,6 +79,12 @@ class SingleSensorController extends React.Component {
                 console.log('Stream Completed');
             }
         );
+    }
+
+    loadChart(data) {
+        if(this.state.sensordata.length > 0) {
+            return (<SensorChart data={data}/>)
+        }
     }
 
     render() {
@@ -96,13 +100,13 @@ class SingleSensorController extends React.Component {
             <section className="sensor-page-header" id={this.props.routeParams.sensorid+"-single-container"}>
                 <Panel>
 
-                    <Sensor sensorid={this.props.routeParams.sensorid} />
+                    <Sensor id={this.props.routeParams.sensorid} single={true}/>
 
                     <div className="sensor-graph">
                         <h3>Historical Data</h3>
                         <Well>
 
-
+                            {this.loadChart(data)}
 
                         </Well>
                     </div>

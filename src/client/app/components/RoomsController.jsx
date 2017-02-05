@@ -1,53 +1,17 @@
 import React, { PropTypes } from 'react'
 import Room from './Room'
-import Sensor from './Sensor'
-
+import Sensor from './SensorController'
+import RoomController from './RoomController'
 import _ from 'lodash'
 
-class RoomsController extends React.Component {
+class RoomsController extends RoomController {
 
     componentDidMount() {
 
     }
 
-    sensorsForRoom(room) {
-        let roomId = room.id;
-        if(roomId in this.props.sensorsRooms.rooms) {
-
-            //console.log(this.props.sensorsRooms[roomId]);
-            // we have sensors I guess?
-            var assigned = this.props.sensorsRooms.rooms[roomId].sensors;
-
-
-            if(assigned.length > 0) {
-                return assigned.map(function(key) {
-                        return (
-                            <Sensor sensorid={key} key={key}/>
-                        )
-                    }
-                )
-            }
-        }
-        return (
-            <Sensor sensorid={null} />
-        )
-    }
-
-    unassignedSensors() {
-        var unassigned = _.xor(Object.keys(this.props.sensors), this.props.sensorsRooms._mmcAllAssigned);
-        console.log(unassigned);
-
-        if(unassigned.length > 0) {
-            return unassigned.map(function(key) {
-                    return (
-                        <Sensor sensorid={key} key={key}/>
-                    )
-                }
-            )
-        }
-    }
-
     render() {
+
         return (
             <rooms>
                 <section className="rooms-container">
@@ -64,7 +28,7 @@ class RoomsController extends React.Component {
                     }
                 </section>
                 <section className="unassigned-sensors">
-                    <Room room={{id: 'unassigned-room', name:'Unassigned', occupied: false}}>
+                    <Room room={{id: 'unassigned-room', name:'Unassigned', occupied: false}} in={true}>
                         {this.unassignedSensors()}
                     </Room>
                 </section>
@@ -80,7 +44,6 @@ const mapStateToProps = (state) => {
     return {
         rooms: state.rooms,
         sensors: state.sensors,
-        activity: state.activity,
         sensorsRooms: state.sensorsRooms
     }
 }

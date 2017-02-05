@@ -1,5 +1,5 @@
 {
-  "name": "Manage My Sensors Testbed",
+  "name": "mmstestbed",
   "version": "1.0.0",
   "description": "Proof of concept for managing/visualising disparate sensors in an IOT mesh.",
   "main": "index.js",
@@ -9,25 +9,32 @@
     "build": "webpack",
     "minify": "webpack -p",
     "devserve": "node src/server/index.js",
-    "deploytest": "rsync -Pav -e 'ssh -i /home/graham/keys/raccoons.pem' . graham@mmctest.doopnet.com:/home/graham/mmc --exclude=*.iml --exclude=.idea --exclude=.git* --exclude=node_modules/ --exclude=public/"
+    "localtest": "rsync -Pav -e 'ssh -i /home/graham/keys/dawsoaa5root.pem -p 2224' . user@localhost:/home/user/docker/client --exclude=*.iml --exclude=.idea --exclude=.git* --exclude=node_modules/ --exclude=public/",
+    "deploytest": "rsync -Pav -e 'ssh -i /home/graham/keys/dockeru.doopnet.uk -p 2002' . dockeru@doopnet.com:/home/dockeru/docker/client --exclude=*.iml --exclude=.idea --exclude=.git* --exclude=node_modules/ --exclude=public/"
   },
   "author": "Graham Dawson <graham.dawson@simplicityitself.com> (http://simplicityitself.com/)",
   "license": "ISC",
   "dependencies": {
+    "aether-client-js": "muoncore/aether-client",
     "bootstrap": "^3.3.7",
     "chart.js": "^1.1.1",
+    "classnames": "^2.2.5",
     "history": "^4.5.1",
     "lodash": "^4.17.4",
     "muon-core": "^7.1.16",
     "muonjs": "^7.1.16",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
-    "react-chartjs": "^0.8.0",
+    "react-chartjs-2": "^2.0.0",
+    "react-dnd": "^2.1.4",
+    "react-dnd-html5-backend": "^2.1.2",
     "react-document-title": "^2.0.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.1",
-    "redux": "^3.6.0"
+    "react-sidebar": "^2.2.1",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",

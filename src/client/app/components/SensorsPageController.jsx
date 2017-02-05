@@ -1,5 +1,5 @@
 import React from 'react'
-import Sensor from './Sensor';
+import Sensor from './SensorController';
 
 // Muon
 
@@ -12,13 +12,10 @@ class SensorsController extends React.Component {
 
     constructor(props) {
         super(props);
-        //this.state = {
-        //    sensors: []
-        //}
     }
 
     componentDidMount() {
-
+        console.log(this.props.sensors);
     }
 
     render() {
@@ -29,7 +26,7 @@ class SensorsController extends React.Component {
                 <div>
                     {
                         Object.keys(this.props.sensors).map(function(key){
-                            return <Sensor sensorid={this.props.sensors[key].sensorid} key={key} />
+                            return <Sensor id={key} key={key} />
                         }.bind(this))
                     }
                 </div>
@@ -40,17 +37,21 @@ class SensorsController extends React.Component {
 
 
 import { connect } from 'react-redux'
+import { sensorActivity } from '../actions/sensorActivity'
 
 const mapStateToProps = (state) => {
 
     return {
-        sensors: state.sensors,
-        activity: state.activity
+        sensors: state.sensors
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {}
+    return {
+        sensorActivity: (sensor) => {
+            dispatch(sensorActivity(sensor));
+        }
+    }
 }
 
 

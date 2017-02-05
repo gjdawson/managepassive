@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
-
-import Muon from 'muonjs';
 import _ from 'lodash'
-var muon = Muon.client({port: 9898});
+
 
 import SensorActivity from './SensorActivity'
 
@@ -40,12 +38,16 @@ class SensorActivityController extends React.Component {
         var timeout = setTimeout(function() {
             this.setState({loadtimer: null});
 
-        }.bind(this), 4000);
+        }.bind(this), 1000);
         this.setState({loaded: false, loadtimer: timeout});
     }
 
     componentWillReceiveProps() {
         this.loadTime();
+    }
+
+    componentDidMount() {
+
     }
 
     render() {

@@ -1,6 +1,13 @@
-export const readbackSensorAssignment = (data) => {
+export const assignSensor = (data) => {
     return {
-        type: 'READBACK_SENSOR_ASSIGNMENT',
+        type: 'ASSIGN_SENSOR',
+        data: data
+    }
+}
+
+export const unassignSensor = (data) => {
+    return {
+        type: 'UNASSIGN_SENSOR',
         data: data
     }
 }

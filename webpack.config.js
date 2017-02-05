@@ -54,13 +54,20 @@ var config = {
         loaders: [
             {
                 test: /\.jsx?$/,         // Match both .js and .jsx files
-                exclude: /node_modules/,
-                include: APP_DIR,
-                loader: "babel",
+
+                include: [
+                    APP_DIR,
+                    path.resolve(__dirname, 'node_modules', 'aether-client-js')
+                ],
+                loader: "babel-loader",
                 query: {
                     presets: ['es2015','react']
                 }
             },
+            //{
+            //    test: /\.js$/,
+            //
+            //}
             {
                 test: /\.json$/,
                 loader: 'json'
