@@ -83,6 +83,18 @@ header {
     margin: 1rem;
     min-height:29rem;
     min-width:39rem;
+    /*animation: roomWidth 0.2s ease-in-out 1;*/
+    /*transform-origin: left center;*/
+}
+
+@keyframes roomWidth {
+    0% {
+        transform: scaleX(0);
+    }
+
+    100% {
+        transform: scaleX(1);
+    }
 }
 
 .sensor-graph {
@@ -193,3 +205,4 @@ div.verdisp {
     color: #eee;
     padding:0.4rem;
 }
+

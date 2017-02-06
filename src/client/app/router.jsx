@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 
 import MainLayout from './components/layouts/MainLayout';
 import Sidebar from './components/layouts/Sidebar';
+import Transit from './components/layouts/Transit'
 
 // Pages
 import HomePageController from './components/HomePageController';
@@ -16,6 +17,7 @@ import SingleSensorController from './components/SingleSensorPageController'
 import SensorsPageController from './components/SensorsPageController'
 import Dummy from './components/Dummy'
 
+
 // App
 import Auth from './components/Auth'
 import App from './components/App'
@@ -24,7 +26,7 @@ import App from './components/App'
 const Root = ({ store }) => (
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path="/">
+            <Route path="/" component={Transit}>
                 <Route path="login" component={Login} />
                 <Route path="register" component={Register} />
                 <Route component={Auth}>
