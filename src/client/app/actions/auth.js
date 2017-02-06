@@ -33,6 +33,10 @@ function loginError(message) {
     }
 }
 
+export function verifyUser(creds) {
+
+}
+
 export function loginUser(creds) {
 
 
@@ -43,6 +47,8 @@ export function loginUser(creds) {
 
         dispatch(requestLogin(creds))
 
+        console.log(creds);
+
         // do our login here
 
         return aether.login({
@@ -50,13 +56,13 @@ export function loginUser(creds) {
             username: creds.username,
             password: creds.password
         }).then((auth) => {
-            console.log("GOT DATAZ " + JSON.stringify(auth))
+            //console.log("GOT DATAZ " + JSON.stringify(auth))
             //
             // aether.deepVerify(auth.token).then((dat) => console.dir(dat)).catch((er) => console.dir(er))
 
             // muon.requestWithAuth("rpc://stream-test/in", {}, auth).then((ret) => console.dir(ret)).catch((err) => console.dir(err))
             localStorage.setItem('id_token', auth.id_token)
-            receiveLogin({id_token: auth.token});
+            dispatch(receiveLogin({id_token: auth.token}));
 
         }).catch(function(err) {
             dispatch(loginError(err.message))
@@ -145,11 +151,11 @@ export function registerUserPassword(creds) {
         muon.request("rpc://aether-password/register", u)
             .then((val) => {
                 console.dir(val)
-                //var user = aether.getUser("Happy")
-                console.log("User is " + JSON.stringify(aether.userdb))
+
+                //console.log("User is " + JSON.stringify(aether.userdb))
                 //assert(user)
                 // done()
-                //dispatch(receiveRegister(creds));
+                dispatch(receiveRegister(creds));
             })
             .catch((er) => {
                 dispatch(registerError(er.message))

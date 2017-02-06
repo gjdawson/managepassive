@@ -6,7 +6,7 @@ const initialState = {
 }
 
 import {
-    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE
+    LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE
 } from '../actions/auth'
 
 // The auth reducer. The starting state sets authentication
@@ -32,9 +32,14 @@ export const auth = (state = initialState, action) => {
                 isAuthenticated: false,
                 errorMessage: action.message
             })
-        case LOGOUT_SUCCESS:
+        case LOGOUT_REQUEST:
             return Object.assign({}, state, {
                 isFetching: true,
+                isAuthenticated: false
+            })
+        case LOGOUT_SUCCESS:
+            return Object.assign({}, state, {
+                isFetching: false,
                 isAuthenticated: false
             })
         case REGISTER_REQUEST:

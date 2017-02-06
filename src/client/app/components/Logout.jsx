@@ -18,9 +18,7 @@ class Logout extends React.Component {
 
     render() {
         return (
-            <Button onClick={this.logOut}>
-                Log Out
-            </Button>
+            <Glyphicon glyph="log-out" className="clickable" onClick={this.logOut} aria-label="Log Out"/>
         )
     }
 

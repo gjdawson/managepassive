@@ -9,7 +9,7 @@ class Login extends React.Component {
 
         this.usernameCheck = this.usernameCheck.bind(this);
         this.passwordCheck = this.passwordCheck.bind(this);
-
+        this.logInUser = this.logInUser.bind(this);
         this.state = {
             user: {
                 username: null,
@@ -19,8 +19,10 @@ class Login extends React.Component {
         }
     }
 
-    logInUser() {
+    logInUser(e) {
+        e.preventDefault();
         const { loginUser } = this.props;
+        //console.log('Logging in');
         loginUser(this.state.user);
     }
 
@@ -49,8 +51,9 @@ class Login extends React.Component {
     }
 
     componentWillReceiveProps(next) {
+
         let now = this.props.auth;
-        console.log(next.auth);
+
         if(next.auth.isAuthenticated == true) {
             browserHistory.push('/');
         }
@@ -59,7 +62,7 @@ class Login extends React.Component {
     loginStatus() {
 
         if(this.props.auth.isFetching) return null;
-        if(this.props.auth.errorMessage != null) {
+        if(this.props.auth.errorMessage != null && this.props.auth.errorMessage.length > 0) {
             return (
                 <Alert bsStyle="warning">
                     {this.props.auth.errorMessage}
@@ -70,7 +73,12 @@ class Login extends React.Component {
 
     render() {
 
-        let header = <h3>Log In</h3>
+        let spinner = '';
+        if(this.props.auth.isFetching) {
+            spinner = <Glyphicon glyph="transfer" className="pull-right active-data"/>
+        }
+
+        let header = <h3>Log In{spinner}</h3>
         return(
             <MinimalLayout title="Login">
                 <div id="user-login-out">
@@ -78,7 +86,7 @@ class Login extends React.Component {
 
 
 
-                        <Form horizontal>
+                        <Form horizontal action="" onSubmit={this.logInUser}>
                             <FormGroup controlId="username" validationState={this.usernameState()}>
                                 <InputGroup>
                                     <InputGroup.Addon><Glyphicon glyph="user" /></InputGroup.Addon>
@@ -89,14 +97,14 @@ class Login extends React.Component {
                             <FormGroup controlId="loginPassword" validationState={this.validatePassword()}>
                                 <InputGroup>
                                     <InputGroup.Addon><Glyphicon glyph="question-sign" /></InputGroup.Addon>
-                                    <FormControl type="password" placeholder="Password" onBlur={this.passwordCheck}/>
+                                    <FormControl type="password" placeholder="Password" onChange={this.passwordCheck}/>
                                     <FormControl.Feedback />
                                 </InputGroup>
                             </FormGroup>
 
                             <FormGroup>
 
-                                <Button onClick={(event)=>this.logInUser()} disabled={this.props.auth.isFetching}>Log In</Button>
+                                <Button disabled={this.props.auth.isFetching} type="submit">Log In</Button>
 
                                 <Link to="/register" className="auxlink pull-right">Register</Link>
 

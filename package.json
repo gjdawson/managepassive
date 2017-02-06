@@ -8,8 +8,8 @@
     "dev": "webpack -d --watch",
     "build": "webpack",
     "minify": "webpack -p",
-    "devserve": "node src/server/index.js",
-    "localtest": "rsync -Pav -e 'ssh -i /home/graham/keys/dawsoaa5root.pem -p 2224' . user@localhost:/home/user/docker/client --exclude=*.iml --exclude=.idea --exclude=.git* --exclude=node_modules/ --exclude=public/",
+    "start": "node src/server/index.js",
+    "localtest": "rsync -Pav -e 'ssh -i /home/graham/keys/dawsoaa5root.pem -p 2224' . user@localhost:/home/user/docker/deploy/client --exclude=*.iml --exclude=.idea --exclude=.git* --exclude=node_modules/ --exclude=public/",
     "deploytest": "rsync -Pav -e 'ssh -i /home/graham/keys/dockeru.doopnet.uk -p 2002' . dockeru@doopnet.com:/home/dockeru/docker/client --exclude=*.iml --exclude=.idea --exclude=.git* --exclude=node_modules/ --exclude=public/"
   },
   "author": "Graham Dawson <graham.dawson@simplicityitself.com> (http://simplicityitself.com/)",

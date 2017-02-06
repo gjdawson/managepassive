@@ -18,7 +18,7 @@ class Register extends React.Component {
 
         this.passwordCheck = this.passwordCheck.bind(this);
         this.usernameCheck = this.usernameCheck.bind(this);
-
+        this.registerUser = this.registerUser.bind(this);
     }
 
     validateUsername() {
@@ -27,11 +27,13 @@ class Register extends React.Component {
             return 'error'
         }
         this.setState({usernameIsError: false})
+
         return null;
     }
 
     usernameState() {
         if(this.state.usernameIsError) return 'error';
+        if(this.state.username.length > 0) return 'success'
         return null;
     }
 
@@ -73,7 +75,8 @@ class Register extends React.Component {
         return null;
     }
 
-    registerUser() {
+    registerUser(e) {
+        e.preventDefault();
         let test = this.validateUsername() || this.validatePassword(true)
         const { registerUserPassword } = this.props;
         if(test == null) {
@@ -130,7 +133,7 @@ class Register extends React.Component {
 
 
 
-                        <Form horizontal>
+                        <Form horizontal action="" onSubmit={this.registerUser}>
                             <FormGroup controlId="username" validationState={this.usernameState()}>
                                 <InputGroup>
                                     <InputGroup.Addon><Glyphicon glyph="user" /></InputGroup.Addon>
@@ -141,7 +144,7 @@ class Register extends React.Component {
                             <FormGroup controlId="registerPassword" validationState={this.validatePassword()}>
                                 <InputGroup>
                                     <InputGroup.Addon><Glyphicon glyph="question-sign" /></InputGroup.Addon>
-                                    <FormControl type="password" placeholder="Password" onBlur={this.passwordCheck}/>
+                                    <FormControl type="password" placeholder="Password" onChange={this.passwordCheck}/>
                                     <FormControl.Feedback />
                                 </InputGroup>
                             </FormGroup>
@@ -150,14 +153,14 @@ class Register extends React.Component {
 
                                 <InputGroup>
                                     <InputGroup.Addon><Glyphicon glyph="question-sign" /></InputGroup.Addon>
-                                    <FormControl type="password" placeholder="Repeat Password" onBlur={this.passwordCheck} />
+                                    <FormControl type="password" placeholder="Repeat Password" onChange={this.passwordCheck} />
                                     <FormControl.Feedback />
                                 </InputGroup>
 
                             </FormGroup>
 
                             <FormGroup>
-                                <Button onClick={(event)=>this.registerUser()} disabled={this.props.auth.isRegistering || this.state.registered}>Register</Button>
+                                <Button type="submit" disabled={this.props.auth.isRegistering || this.state.registered}>Register</Button>
 
                                 <Link to="/login" className="auxlink pull-right">Log In</Link>
                             </FormGroup>

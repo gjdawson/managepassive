@@ -5,6 +5,7 @@ import config from '../config/'
 
 import MainLayout from './layouts/MainLayout';
 
+
 import { connect } from 'react-redux'
 
 import Muon from 'muonjs'
@@ -130,6 +131,7 @@ class App extends React.Component {
         return (
             <MainLayout>
                 {this.props.children}
+
             </MainLayout>
         )
     }

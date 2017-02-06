@@ -3,6 +3,7 @@ import config from '../../config/'
 import Sidebar from 'react-sidebar'
 import { Grid, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import Ver from './Ver'
 
 import Muon from 'muonjs'
 
@@ -37,8 +38,11 @@ class MinimalLayout extends React.Component {
 
             <DocumentTitle title={config.title + ' – ' + this.props.title}>
                 <div id="user-login-out">
+
                     {this.props.children}
+                    <Ver/>
                 </div>
+
             </DocumentTitle>
         );
     }

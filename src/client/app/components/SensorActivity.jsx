@@ -17,7 +17,7 @@ class SensorActivity extends React.Component {
         }
 
         return (
-            <Glyphicon glyph="cloud" className={"pull-left sensorActivity " + status} />
+            <Glyphicon glyph="transfer" className={"pull-left sensorActivity " + status} />
         )
     }
 

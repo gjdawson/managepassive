@@ -31,10 +31,10 @@ class SensorsController extends React.Component {
         const { sensorActivity } = this.props;
         let state = {sensor: payload};
         let now = new Date().getTime();
-        //if(time >= (now - 5000)) {
+        if(time >= (now - 5000)) {
             this.setState(state);
             sensorActivity(payload);
-        //}
+        }
 
     }
 

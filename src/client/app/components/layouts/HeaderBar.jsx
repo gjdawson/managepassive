@@ -21,8 +21,8 @@ class HeaderBarController extends React.Component {
                         <NavLink to="/sensors">Sensors</NavLink>
                     </Nav>
                     <Navbar.Text pullRight>
-                        <Logout />
                         <Alerts />
+                        <Logout />
                     </Navbar.Text>
                 </Navbar>
 

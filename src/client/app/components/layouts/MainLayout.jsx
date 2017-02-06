@@ -1,9 +1,8 @@
 import React from 'react'
 import config from '../../config/'
-import Sidebar from 'react-sidebar'
 import { Grid, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
-
+import Ver from './Ver'
 
 // Components
 import DocumentTitle from 'react-document-title'
@@ -40,6 +39,7 @@ class MainLayout extends React.Component {
 
                     <HeaderBarController>
                         {this.props.children}
+                        <Ver/>
                     </HeaderBarController>
 
             </DocumentTitle>
