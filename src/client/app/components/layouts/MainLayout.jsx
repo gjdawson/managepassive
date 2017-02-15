@@ -3,6 +3,7 @@ import config from '../../config/'
 import { Grid, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Ver from './Ver'
+import EasyTransition from 'react-easy-transition'
 
 // Components
 import DocumentTitle from 'react-document-title'
@@ -38,10 +39,16 @@ class MainLayout extends React.Component {
 
 
                     <HeaderBarController>
-                        {this.props.children}
-                        <Ver/>
+                        <EasyTransition
+                            path={this.props.location.pathname}
+                            initialStyle={{ opacity: 0}}
+                            transition="opacity 0.3s ease-in"
+                            finalStyle={{ opacity: 1}}
+                        >
+                            <Ver />
+                            {this.props.children}
+                        </EasyTransition>
                     </HeaderBarController>
-
             </DocumentTitle>
         );
     }

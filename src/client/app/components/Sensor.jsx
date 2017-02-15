@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import { Glyphicon } from 'react-bootstrap'
 
@@ -80,11 +80,7 @@ class Sensor extends React.Component {
         )
     }
 
-    sensor() {
-
-    }
-
-    render() {
+    sensor(isDragging) {
 
         var tint = '#fff';
         if(this.state.sensorVal > 0) {
@@ -98,64 +94,72 @@ class Sensor extends React.Component {
             }
         }
 
+        let type, title, sensorName;
+        if(this.types.indexOf(this.props.type) == -1) {
+            type = 'generic';
+        } else {
+            type = this.props.type;
+        }
 
+        if(this.props.single !== true) {
+            title = (<Link to={"/sensor/" + this.props.id}>Sensor: {this.props.id}</Link>)
+        } else {
+            title = "Sensor:" + this.props.id;
+        }
 
+        if(!isDragging) {
+            sensorName = (<div className="sensor-name">{title}</div>)
+        }
+
+        return (
+            <sensor className={"sensor pull-left" + (isDragging? " interacting":"")}>
+                <div className="indicator-pad">
+                    <div className="square">
+
+                        <div className="indicator" style={{height: this.state.sensorVal+"%", background: tint}}></div>
+                        <div className={"sensor-type " + type}></div>
+                    </div>
+                </div>
+                {sensorName}
+            </sensor>
+        )
+    }
+
+    render() {
+
+        const { isDragging, connectDragSource } = this.props;
         if(this.props.value == 0 && this.props.type == 'loading') {
             return this.loading();
         } else {
-            let type, title;
-            if(this.types.indexOf(this.props.type) == -1) {
-                type = 'generic';
-            } else {
-                type = this.props.type;
-            }
-
-            if(this.props.single !== true) {
-                title = (<Link to={"/sensor/" + this.props.id}>Sensor: {this.props.id}</Link>)
-            } else {
-                title = "Sensor:" + this.props.id;
-            }
-            return (
-                <sensor className={"sensor pull-left"}>
-                    <div className="indicator-pad">
-                        <div className="square">
-
-                            <div className="indicator" style={{height: this.state.sensorVal+"%", background: tint}}></div>
-                            <div className={"sensor-type " + type}></div>
-                        </div>
-                    </div>
-                    <div className="sensor-name">
-                        {title}
-                    </div>
-
-                </sensor>
+            return connectDragSource(
+                this.sensor(isDragging)
             )
         }
-
-
     }
 }
 
-import { connect } from 'react-redux'
-import { sensorActivity } from '../actions/sensorActivity'
+import { DragSource } from 'react-dnd';
 
-const mapStateToProps = (state) => {
+const sensorSource = {
+    beginDrag(props) {
 
+        return {
+            id: props.id,
+            type: props.type
+        };
+    }
+}
+
+function collect(connect, monitor) {
     return {
-
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
     }
 }
 
-const mapDispatchToProps = (dispatch) =>
-{
-    return {
+Sensor.propTypes = {
+    connectDragSource: PropTypes.func.isRequired,
+    isDragging: PropTypes.bool.isRequired
+};
 
-    }
-}
-
-
-//export default MainLayout;
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Sensor);
+export default DragSource('sensor', sensorSource, collect)(Sensor);

@@ -26,7 +26,7 @@ import App from './components/App'
 const Root = ({ store }) => (
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path="/" component={Transit}>
+            <Route path="/">
                 <Route path="login" component={Login} />
                 <Route path="register" component={Register} />
                 <Route component={Auth}>

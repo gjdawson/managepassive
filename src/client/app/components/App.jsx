@@ -35,8 +35,6 @@ class App extends React.Component {
         // this is probably cheeky
         const userid = localStorage.getItem('id_username');
 
-        console.log(userid);
-
         this.subscriptions.rooms = this.muon.subscribe('stream://photon/stream', {"stream-name": "registered-rooms-" + userid},
             function (event) {
                 console.log(event);
@@ -121,9 +119,9 @@ class App extends React.Component {
         let auth = this.props.auth;
         if(auth.isAuthenticated) {
 
-            this.subscribeRooms();
+            //this.subscribeRooms();
             this.subscribeSensors();
-            this.subscribeSensorsRooms();
+            //this.subscribeSensorsRooms();
         } else {
             console.log('Not authorised, no streams loaded');
         }
@@ -138,7 +136,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <MainLayout>
+            <MainLayout {...this.props}>
                 {this.props.children}
 
             </MainLayout>
@@ -184,7 +182,6 @@ const mapDispatchToProps = (dispatch) => {
         }
     }
 }
-
 
 //export default MainLayout;
 export default DragDropContext(HTML5Backend)(connect(

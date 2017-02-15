@@ -4,6 +4,7 @@ import Sidebar from 'react-sidebar'
 import { Grid, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Ver from './Ver'
+import EasyTransition from 'react-easy-transition'
 
 import Muon from 'muonjs'
 
@@ -37,11 +38,18 @@ class MinimalLayout extends React.Component {
         return (
 
             <DocumentTitle title={config.title + ' – ' + this.props.title}>
-                <div id="user-login-out">
+                <EasyTransition
+                    path={this.props.location.pathname}
+                    initialStyle={{ opacity: 0}}
+                    transition="opacity 0.3s ease-in"
+                    finalStyle={{ opacity: 1}}
+                >
+                    <div id="user-login-out">
 
-                    {this.props.children}
-                    <Ver/>
-                </div>
+                        {this.props.children}
+                        <Ver/>
+                    </div>
+                </EasyTransition>
 
             </DocumentTitle>
         );

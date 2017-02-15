@@ -127,7 +127,7 @@ class Register extends React.Component {
         let header = (<h3>Register{spinner}</h3>)
 
         return(
-            <MinimalLayout title="Login">
+            <MinimalLayout title="Login" {...this.props}>
                 <div id="user-login-out">
                     <Panel header={header}>
 

@@ -206,3 +206,11 @@ div.verdisp {
     padding:0.4rem;
 }
 
+.room.is-hovered {
+    border-color:red;
+}
+
+.sensor.interacting {
+    opacity: 0.5;
+    border:1px solid green;
+}
