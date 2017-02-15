@@ -56,12 +56,13 @@ export function loginUser(creds) {
             username: creds.username,
             password: creds.password
         }).then((auth) => {
-            //console.log("GOT DATAZ " + JSON.stringify(auth))
+            console.log("GOT DATAZ " + JSON.stringify(auth))
             //
             // aether.deepVerify(auth.token).then((dat) => console.dir(dat)).catch((er) => console.dir(er))
 
             // muon.requestWithAuth("rpc://stream-test/in", {}, auth).then((ret) => console.dir(ret)).catch((err) => console.dir(err))
-            localStorage.setItem('id_token', auth.id_token)
+            localStorage.setItem('id_token', auth.id_token);
+            localStorage.setItem('id_username', creds.username);
             dispatch(receiveLogin({id_token: auth.token}));
 
         }).catch(function(err) {
@@ -98,6 +99,7 @@ export function logoutUser() {
     return dispatch => {
         dispatch(requestLogout())
         localStorage.removeItem('id_token')
+        localStorage.removeItem('id_username')
         dispatch(receiveLogout())
     }
 }

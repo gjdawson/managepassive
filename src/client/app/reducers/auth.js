@@ -18,7 +18,7 @@ export const auth = (state = initialState, action) => {
             return Object.assign({}, state, {
                 isFetching: true,
                 isAuthenticated: false,
-                user: action.creds
+                user: {}
             })
         case LOGIN_SUCCESS:
             return Object.assign({}, state, {

@@ -25,15 +25,22 @@ class App extends React.Component {
         }
 
 
+
+
     }
 
     subscribeRooms() {
         const { registerNewRoom } = this.props;
 
-        this.subscriptions.rooms = this.muon.subscribe('stream://photon/stream', {"stream-name": "registered-rooms"},
+        // this is probably cheeky
+        const userid = localStorage.getItem('id_username');
+
+        console.log(userid);
+
+        this.subscriptions.rooms = this.muon.subscribe('stream://photon/stream', {"stream-name": "registered-rooms-" + userid},
             function (event) {
-                //console.log(event);
-                if(event['event-type'] == 'room-created') {
+                console.log(event);
+                if (event['event-type'] == 'room-created') {
                     console.log('Creating Room ' + event.payload.name)
                     registerNewRoom(event.payload);
                 }
@@ -45,11 +52,13 @@ class App extends React.Component {
                 console.log('Stream Completed');
             }
         );
+
     }
 
     subscribeSensors() {
 
         const { connectSensor, disconnectSensor, removeSensor } = this.props;
+
 
         this.subscriptions.sensors = this.muon.subscribe('stream://photon/stream', {"stream-name": "registered-sensors"},
             function (event) {
